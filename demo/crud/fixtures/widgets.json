@@ -1,0 +1,34 @@
+[
+  {
+    "model": "crud.Widget",
+    "pk": 1,
+    "fields": {
+      "name": "Bell",
+      "sku": 1
+    }
+  },
+  {
+    "model": "crud.Widget",
+    "pk": 2,
+    "fields": {
+      "name": "Whistle",
+      "sku": 2
+    }
+  },
+  {
+    "model": "crud.Widget",
+    "pk": 3,
+    "fields": {
+      "name": "Thistle",
+      "sku": 3
+    }
+  },
+  {
+    "model": "crud.Widget",
+    "pk": 4,
+    "fields": {
+      "name": "Watch",
+      "sku": 4
+    }
+  }
+]

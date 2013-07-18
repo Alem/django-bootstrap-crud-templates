@@ -1,0 +1,80 @@
+<html>
+
+<head>
+
+    <title>Django Bootstrap CRUD Templates</title>
+    <meta charset="utf-8">
+
+    <style>
+        input { min-height: 1.8em; } 
+    </style> 
+
+    <!-- Piwik -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      _paq.push(["trackPageView"]);
+      _paq.push(["enableLinkTracking"]);
+
+      (function() {
+        var u=(("https:" == document.location.protocol) ? "https" : "http") + "://www.alemcode.com/piwik/";
+        _paq.push(["setTrackerUrl", u+"piwik.php"]);
+        _paq.push(["setSiteId", "8"]);
+        var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+        g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Piwik Code -->k
+
+</head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Django Bootstrap CRUD Templates</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="{% url 'widgets' %}">Home</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="hero-unit">
+        {% block BSCT_MAIN %}
+        {% endblock %}
+      </div>
+      
+      <div class = 'help' >
+        <h2> A Demonstration </h2>
+        This is a demonstration of django-bootstrap-templates.
+        Please note that the database is reloaded every five minutes. 
+
+        <h3>The work involved</h3>
+        Each page is generated automatically simply through the
+        definition of a few model attributes and its class-based views.
+
+        <div class='row'>
+            <div class='span12'>
+                <h4>models.py</h4>
+                <pre>{% with project_root|add:"/crud/models.py" as models %}{% ssi models %} {% endwith %}</pre>
+            </div>
+            <div class='span12'>
+                <h4>urls.py</h4>
+                <pre>{% with ""|add:project_root|add:"/crud/urls.py" as urls %}{% ssi urls %} {% endwith %}</pre>
+            </div>
+        </div>
+
+      </div>
+
+    </div>
+
+</body>
+</html>

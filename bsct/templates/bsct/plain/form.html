@@ -1,0 +1,42 @@
+{% extends 'bsct/base.html' %}
+ 
+{% load bsttags %}
+
+{% block BSCT_CONTENT %}
+<h2> Create {% get_verbose_name form.instance %} </h2>
+
+<form 
+    action  = ''
+    method  = 'post' 
+    class   = 'form-inline' 
+    enctype = 'multipart/form-data' 
+>
+
+    {% csrf_token %}
+
+    <div class = 'well' >
+
+        {{ form.as_p }}
+
+    </div>
+
+    <div class='actions'>
+        <input
+            value = 'Save'
+            type  = 'submit' 
+            class = 'btn btn-success' 
+        />
+
+        {% if form.instance.get_list_url %}
+            <a 
+                class = 'btn'
+                href  = '{{form.instance.get_list_url}}'
+            >
+                Back
+            </a>
+        {% endif %}
+    </div>
+
+</form>
+
+{% endblock %}

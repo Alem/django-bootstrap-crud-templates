@@ -1,0 +1,8 @@
+#!/bin/bash
+BASEDIR=$(dirname $0)
+source $BASEDIR/venv/bin/activate
+rm $BASEDIR/demo.db
+python $BASEDIR/manage.py syncdb --noinput > /dev/null
+python $BASEDIR/manage.py loaddata $BASEDIR/crud/fixtures/widgets.json > /dev/null
+chown za:www-data $BASEDIR/demo.db
+chmod 775 $BASEDIR/demo.db

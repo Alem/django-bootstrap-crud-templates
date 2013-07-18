@@ -1,0 +1,14 @@
+{% extends bsct_base|default:'base.html' %}
+
+{% load bsttags %}
+
+{% block BSCT_MAIN %}
+
+    {% block BSCT_BOOTSTRAP_CDN %}
+    {% bootstrap_cdn %}
+    {% endblock %}
+
+    {% block BSCT_CONTENT %}
+    {% endblock %}
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'bsct/base.html' %}
+ 
+{% load bsttags %}
+
+{% block BSCT_CONTENT %}
+<h2>
+    {{object}}
+</h2>
+
+<table class = 'table table-condensed' >
+{% with object|model_to_dict as md %}
+    {% for name,value in md.items %}
+    <tr>
+        <td>
+            <b> {{ name }}</b>
+        </td>
+
+        <td>
+            {{ value }}
+        </td>
+    </tr>
+    {% endfor %}
+{% endwith %}
+</table>
+
+{% if object.get_update_url %}
+    <a 
+        class = 'btn btn-info'
+        href  = '{{object.get_update_url}}'
+    >
+        Edit
+    </a>
+{% endif %}
+{% if object.get_delete_url %}
+    <a 
+        class = 'btn btn-warning'
+        href  = '{{object.get_delete_url}}'
+    >
+        Delete
+    </a>
+{% endif %}
+
+{% if object.get_list_url %}
+    <a 
+        class = 'btn'
+        href  = '{{object.get_list_url}}'
+    >
+        Listing
+    </a>
+{% endif %}
+
+{% endblock %}

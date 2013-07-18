@@ -1,0 +1,38 @@
+{% extends 'bsct/base.html' %}
+
+{% load bsttags %}
+ 
+{% block BSCT_CONTENT %}
+<table class = 'table table-striped'>
+
+        <thead>
+            <th> {% get_verbose_name_plural object_list.model %} </th>
+            <th> Action </th>
+        </thead>
+
+        {% for object in object_list %}
+        <tr>
+            <td> {{object}} </td>
+            <td>
+                <a
+                    class = 'btn'
+                    href  = '{{object.get_absolute_url}}'
+                >
+                    View
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+
+</table>
+
+{% if object_list.model.get_create_url %}
+<a
+    class = 'btn btn-primary'
+    href  = '{{object_list.model.get_create_url }}'
+>
+    Create a {% get_verbose_name object_list.model %} 
+</a>
+{% endif %}
+
+{% endblock %}

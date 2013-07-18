@@ -1,0 +1,36 @@
+{% extends 'bsct/base.html' %}
+ 
+{% block BSCT_CONTENT %}
+<form
+    action=""
+    method="post"
+>
+    {% csrf_token %}
+
+    {% block BSCT_WARNING %}
+        {% block BSCT_WARNING_ALERT %}
+        <p 
+            class = 'alert alert-warning'
+        >
+            Are you you sure you want to delete "{{object}}"? 
+        </p>
+        {% endblock %}
+
+        {% block BSCT_WARNING_OPTS %}
+        <input 
+            class = 'btn btn-warning'
+            type  = 'submit' 
+            value = 'Yes' 
+        />
+
+        <a
+            class = 'btn'
+            href  = '{{object.get_absolute_url}}'
+        >
+            No
+        </a>
+        {% endblock %}
+    {% endblock %}
+
+</form>
+{% endblock %}
