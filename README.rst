@@ -34,13 +34,13 @@ Model Requirements
 In order to make the most use of the features, the Model should have a few
 attributes defined:
     
-    - ``get_absolute_url``*: Returns the url to view the instance.
-    - ``get_create_url``: Returns the url to create an instance.
-    - ``get_list_url``: Returns the url to list all instances.
-    - ``get_delete_url``: Returns the url to delete the instance.
-    - ``get_update_url``: Returns the url to update the instance.
+- ``get_absolute_url`` *: Returns the url to view the instance.
+- ``get_create_url``: Returns the url to create an instance.
+- ``get_list_url``: Returns the url to list all instances.
+- ``get_delete_url``: Returns the url to delete the instance.
+- ``get_update_url``: Returns the url to update the instance.
 
-    * Required for minimal navigational functionality.
+* Required for minimal navigational functionality.
 
 For example, with a delete url named 'widget_delete', get_update_url may be
 defined as: ::
@@ -107,20 +107,20 @@ host a collection of user-submitted Bootstrap template-sets for Django.
 If you have a set of Bootstrap templates you wish to include, simply 
 follow the five steps below (assuming you have a GitHub account):
 
-    1. Fork and clone https://github.com/Alem/django-bootstrap-templates.
-    2. Ensure your set has at least two of the following templates:
+1. Fork and clone https://github.com/Alem/django-bootstrap-templates.
+2. Ensure your set has at least two of the following templates:
 
-         - form.html
-         - list.html
-         - detail.html
-         - confirm_delete.html 
+   - form.html
+   - list.html
+   - detail.html
+   - confirm_delete.html 
 
-    3. (optional) Create a README.rst with a brief description of the template
-        set and any other pertinent information ( external dependencies, author,
-        homepage ).
+3. (optional) Create a README.rst with a brief description of the template
+    set and any other pertinent information ( external dependencies, author,
+    homepage ).
 
-    4. Place all the files in "bsct/templates/yourthemename/".
+4. Place all the files in "bsct/templates/yourthemename/".
 
-    5. Pull.
+5. Pull.
 
 All contributed templates inherit the license of the encompassing project.
