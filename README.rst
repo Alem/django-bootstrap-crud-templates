@@ -12,7 +12,7 @@ Bootstrap template.
 
 Demo_
 
-.. _Demo: http://bsct-demo.cidola.com
+.. _Demo: http://bsct-demo.cidola.com/widget/list
 
 
 Installation
@@ -115,9 +115,7 @@ follow the five steps below (assuming you have a GitHub account):
    - detail.html
    - confirm_delete.html 
 
-3. (optional) Create a README.rst with a brief description of the template
-set and any other pertinent information ( external dependencies, author,
-homepage ).
+3. (optional) Create a README.rst with a brief description of the template set and any other pertinent information ( external dependencies, author, homepage ).
 
 4. Place all the files in "bsct/templates/yourthemename/".
 
