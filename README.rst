@@ -107,7 +107,7 @@ host a collection of user-submitted Bootstrap template-sets for Django.
 If you have a set of Bootstrap templates you wish to include, simply 
 follow the five steps below (assuming you have a GitHub account):
 
-1. Fork and clone https://github.com/Alem/django-bootstrap-templates.
+1. Fork and clone https://github.com/Alem/django-bootstrap-crud-templates.
 2. Ensure your set has at least two of the following templates:
 
    - form.html
@@ -116,8 +116,8 @@ follow the five steps below (assuming you have a GitHub account):
    - confirm_delete.html 
 
 3. (optional) Create a README.rst with a brief description of the template
-    set and any other pertinent information ( external dependencies, author,
-    homepage ).
+set and any other pertinent information ( external dependencies, author,
+homepage ).
 
 4. Place all the files in "bsct/templates/yourthemename/".
 
