@@ -10,19 +10,28 @@ register = Library()
 # CDN Resources
 # -------------------------
 
-@register.simple_tag()
-def netdna_cdn( path ):
+def netdna_css( path ):
     """
     Returns a link to the named NetDNA-hosted CSS resource.
     """
     return '<link href="//netdna.bootstrapcdn.com/%s" rel="stylesheet">' % path
+
+def netdna_js( path ):
+    """
+    Returns a script element sourcing the named NetDNA-hosted JavaScript resource.
+    """
+    return '<script src="//netdna.bootstrapcdn.com/%s"></script>' % path
+
+@register.simple_tag()
+def bootstrap_js_cdn():
+    return netdna_js("twitter-bootstrap/2.3.2/js/bootstrap.min.js")
 
 @register.simple_tag()
 def bootstrap_cdn():
     """
     Returns a link to a CDN-hosted Bootstrap minified CSS file.
     """
-    return netdna_cdn('twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css')
+    return netdna_css('twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css')
 
 @register.simple_tag()
 def bootswatch_cdn( theme ):
@@ -34,7 +43,7 @@ def bootswatch_cdn( theme ):
             "journal","readable","simplex","slate","spacelab",
             "spruce","superhero","united"
     ]:
-        return netdna_cdn( "bootswatch/2.3.2/%s/bootstrap.min.css" % theme )
+        return netdna_css( "bootswatch/2.3.2/%s/bootstrap.min.css" % theme )
     raise Exception( "Unrecognized bootswatch theme: '%s'." % theme )
 
 
