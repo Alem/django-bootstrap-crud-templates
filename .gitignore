@@ -1,6 +1,5 @@
 *pyc
 clean
 demo/demo.db
-demo/build
 deploy
 demo/venv/
