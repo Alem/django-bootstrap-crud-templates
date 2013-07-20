@@ -42,7 +42,7 @@ attributes defined:
 
 * Required for minimal navigational functionality.
 
-For example, with a delete url named 'widget_delete', get_update_url may be
+For example, with a delete url named 'widget_delete', get_delete_url may be
 defined as: ::
     
     def get_delete_url( self ):
