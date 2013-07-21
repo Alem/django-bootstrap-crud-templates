@@ -1,4 +1,7 @@
 *pyc
+build
+dist/
+django_bootstrap_crud_templates.egg-info/
 clean
 demo/demo.db
 deploy

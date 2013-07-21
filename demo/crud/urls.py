@@ -24,6 +24,7 @@ urlpatterns = patterns('',
         r'widget/list$', generic.ListView.as_view( 
             model=models.Widget,
             template_name = 'bsct/plain/list.html',
+            paginate_by = 3
         ), 
         name = 'widgets'
     ),

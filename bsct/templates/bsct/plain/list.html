@@ -26,13 +26,27 @@
 
 </table>
 
+<div class = 'row'>
 {% if object_list.model.get_create_url %}
+<div class = 'span4'>
 <a
     class = 'btn btn-primary'
     href  = '{{object_list.model.get_create_url }}'
 >
     Create a {% get_verbose_name object_list.model %} 
 </a>
+</div>
 {% endif %}
+
+<div class = 'span4'>
+{% if page_obj.has_previous %}
+    <a class = 'btn btn-info' href="?page={{ page_obj.previous_page_number}}"> Previous</a>
+{% endif %}
+{% if page_obj.has_next %}
+    <a class = 'btn btn-info' href="?page={{ page_obj.next_page_number}}"> Next</a>
+{% endif %}
+</div>
+
+</div>
 
 {% endblock %}
