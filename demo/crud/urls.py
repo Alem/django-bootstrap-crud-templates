@@ -26,7 +26,7 @@ urlpatterns = patterns('',
             template_name = 'bsct/plain/list.html',
             paginate_by = 3
         ), 
-        name = 'widgets'
+        name = 'widget_list'
     ),
 
     url(
@@ -34,7 +34,7 @@ urlpatterns = patterns('',
             model=models.Widget,
             template_name = 'bsct/plain/detail.html',
         ),
-        name = 'widget'
+        name = 'widget_detail'
     ),
 
     url(
