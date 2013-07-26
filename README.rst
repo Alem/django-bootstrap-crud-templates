@@ -48,6 +48,15 @@ defined as: ::
     def get_delete_url( self ):
         return reverse( 'widget_delete', kwargs = {'pk' : self.pk } )
 
+Or, you can skip defining these by adding the ``BSCTModelMixin`` to your model and
+simply naming your urls in the following way:
+
+- ``lowercasemodelname_detail``: For the DetailView.
+- ``lowercasemodelname_create``: For the CreateView.
+- ``lowercasemodelname_list``: For the ListView.
+- ``lowercasemodelname_update``: For the UpdateView.
+- ``lowercasemodelname_delete``: For the DeleteView.
+
 
 View Requirements
 ~~~~~~~~~~~~~~~~~

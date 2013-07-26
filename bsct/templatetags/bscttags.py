@@ -1,4 +1,4 @@
-from django.forms.models import model_to_dict as django_m2d
+from django.core import serializers
 from django.template import Library
 
 register = Library()
@@ -73,4 +73,4 @@ def model_to_dict( object ):
     """
     Converts a model into a dictionary of its fields and values.
     """
-    return django_m2d( object )
+    return serializers.serialize( "python", [object] )[0]['fields']
