@@ -16,11 +16,14 @@
 
     <div class = 'well' >
 
+        {% block BSCT_FORM_FIELDS %}
         {{ form.as_p }}
+        {% endblock %}
 
     </div>
 
     <div class='actions'>
+        {% block BSCT_FORM_ACTIONS %}
         <input
             value = 'Save'
             type  = 'submit' 
@@ -35,6 +38,7 @@
                 Back
             </a>
         {% endif %}
+        {% endblock %}
     </div>
 
 </form>

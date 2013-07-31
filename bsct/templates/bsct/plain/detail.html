@@ -7,6 +7,7 @@
     {{object}}
 </h2>
 
+{% block BSCT_DETAIL_FIELDS %}
 <table class = 'table table-condensed' >
 {% with object|model_to_dict as md %}
     {% for name,value in md.items %}
@@ -22,7 +23,9 @@
     {% endfor %}
 {% endwith %}
 </table>
+{% endblock %}
 
+{% block BSCT_DETAIL_ACTIONS %}
 {% if object.get_update_url %}
     <a 
         class = 'btn btn-info'
@@ -48,5 +51,6 @@
         Listing
     </a>
 {% endif %}
+{% endblock %}
 
 {% endblock %}

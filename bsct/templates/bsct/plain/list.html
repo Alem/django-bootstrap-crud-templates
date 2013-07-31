@@ -3,6 +3,8 @@
 {% load bscttags %}
  
 {% block BSCT_CONTENT %}
+
+{% block BSCT_LIST_ITEMS %}
 <table class = 'table table-striped'>
 
         <thead>
@@ -12,21 +14,30 @@
 
         {% for object in object_list %}
         <tr>
-            <td> {{object}} </td>
+            <td> 
+                {% block BSCT_LIST_ITEMS_ITEM %}
+                {{object}} 
+                {% endblock %}
+            </td>
             <td>
+                {% block BSCT_LIST_ITEMS_ACTIONS %}
                 <a
                     class = 'btn'
                     href  = '{{object.get_absolute_url}}'
                 >
                     View
                 </a>
+                {% endblock %}
             </td>
         </tr>
         {% endfor %}
 
 </table>
+{% endblock %}
 
 <div class = 'row'>
+
+{% block BSCT_LIST_CREATE_LINK %}
 {% if object_list.model.get_create_url %}
 <div class = 'span4'>
 <a
@@ -37,7 +48,9 @@
 </a>
 </div>
 {% endif %}
+{% endblock %}
 
+{% block BSCT_LIST_PAGINATION %}
 <div class = 'span4'>
 {% if page_obj.has_previous %}
     <a class = 'btn btn-info' href="?page={{ page_obj.previous_page_number}}"> Previous</a>
@@ -46,6 +59,7 @@
     <a class = 'btn btn-info' href="?page={{ page_obj.next_page_number}}"> Next</a>
 {% endif %}
 </div>
+{% endblock %}
 
 </div>
 
