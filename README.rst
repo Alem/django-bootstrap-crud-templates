@@ -76,6 +76,13 @@ and it must contain the block BSCT_MAIN ::
     {% block BSCT_MAIN %}
     {% endblock %}
 
+If you want to use the CDN-provided version of Bootstrap included in the package
+make sure your base template also defined the block BSCT_CSS ::
+
+    # base.html
+    {% block BSCT_CSS %}
+    {% endblock %}
+
 If you wish to have the template extend from a template other than 'base.html',
 simply provide its name as the value for the context variable 'bsct_base'. ::
 

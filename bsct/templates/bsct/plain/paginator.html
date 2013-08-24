@@ -1,0 +1,43 @@
+{% load bscttags %}
+<div class="pagination">
+    <ul class="pagination">
+        <li 
+            {% if page_obj.number == 1 %}
+                class = 'disabled'
+            {% endif %}
+        >
+            <a class = '' href="?page={{ page_obj.first }}{% append_querystring request %}">&lt;&lt;</a>
+        </li>
+
+        {% if page_obj.has_previous %}
+        <li class =''>
+        <a class = 'prev-page' href="?page={{ page_obj.previous_page_number }}{% append_querystring request %}">&lt;</a>
+        </li>
+        {% endif %}
+
+        {% for po in paginator.page_range %}
+            {% if po == page_obj.number %}
+            <li class ='active' >
+                <a class ='current'> {{ page_obj.number }}</a>
+            {% else %}
+            <li class =''>
+            <a class ='' href="?page={{ po }}{% append_querystring request %}">{{ po }}</a>
+            {% endif %}
+            </li>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class =''>
+        <a class ='next-page' href="?page={{ page_obj.next_page_number }}{% append_querystring request %}">&gt;</a>
+        </li>
+        {% endif %}
+
+        <li 
+            {% if page_obj.number == page_obj.paginator.num_pages %}
+            class ='disabled'
+            {% endif %}
+        >
+        <a class ='' href="?page={{ page_obj.paginator.num_pages }}{% append_querystring request %}">&gt;&gt;</a>
+        </li>
+    </ul>
+</div>

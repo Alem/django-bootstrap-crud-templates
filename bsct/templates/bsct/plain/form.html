@@ -3,7 +3,10 @@
 {% load bscttags %}
 
 {% block BSCT_CONTENT %}
+
+{% block BSCT_TITLE %}
 <h2> Create {% get_verbose_name form.instance %} </h2>
+{% endblock %}
 
 <form 
     action  = ''

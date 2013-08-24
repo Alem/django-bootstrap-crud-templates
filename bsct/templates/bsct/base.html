@@ -2,11 +2,11 @@
 
 {% load bscttags %}
 
-{% block BSCT_MAIN %}
+{% block BSCT_CSS %}
+{% bootstrap_cdn %}
+{% endblock %}
 
-    {% block BSCT_BOOTSTRAP_CDN %}
-    {% bootstrap_cdn %}
-    {% endblock %}
+{% block BSCT_MAIN %}
 
     {% block BSCT_CONTENT %}
     {% endblock %}
