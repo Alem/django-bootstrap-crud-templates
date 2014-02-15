@@ -38,13 +38,7 @@ def bootswatch_cdn( theme, version = '2.3.2' ):
     """
     Returns a link to the named CDN-hosted Bootstrap Swatch theme.
     """
-    if theme.lower() in [
-            "amelia","cerulean","cosmo","cyborg","flatly",
-            "journal","readable","simplex","slate","spacelab",
-            "spruce","superhero","united"
-    ]:
-        return netdna_css( "bootswatch/%s/%s/bootstrap.min.css" % (version,theme) )
-    raise Exception( "Unrecognized bootswatch theme: '%s'." % theme )
+    return netdna_css( "bootswatch/%s/%s/bootstrap.min.css" % (version,theme.lower()) )
 
 
 # Meta-data Extractors 
