@@ -61,12 +61,12 @@
         Each page is generated automatically, requiring only the
         definition of a few model attributes and urls.
 
-        <div class='row'>
-            <div class='span12'>
+        <div class=''>
+            <div class=''>
                 <h4>models.py</h4>
                 <pre>{% with project_root|add:"/crud/models.py" as models %}{% ssi models %} {% endwith %}</pre>
             </div>
-            <div class='span12'>
+            <div class=''>
                 <h4>urls.py</h4>
                 <pre>{% with ""|add:project_root|add:"/crud/urls.py" as urls %}{% ssi urls %} {% endwith %}</pre>
             </div>
