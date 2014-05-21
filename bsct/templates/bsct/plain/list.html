@@ -31,7 +31,7 @@
             <td>
                 {% block BSCT_LIST_ITEMS_ACTIONS %}
                 <a
-                    class = 'btn'
+                    class = 'btn btn-default'
                     href  = '{{ object.get_absolute_url }}'
                 >
                     View
@@ -48,12 +48,14 @@
 
 {% block BSCT_LIST_CREATE_LINK %}
 {% if object_list.model.get_create_url %}
-<a
-    class = 'btn btn-primary'
-    href  = '{{object_list.model.get_create_url }}'
->
-    Create a {% get_verbose_name object_list.model %} 
-</a>
+<div>
+    <a
+        class = 'btn btn-primary'
+        href  = '{{object_list.model.get_create_url }}'
+    >
+        Create a {% get_verbose_name object_list.model %} 
+    </a>
+</div>
 {% endif %}
 {% endblock %}
 

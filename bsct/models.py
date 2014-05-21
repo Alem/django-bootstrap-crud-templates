@@ -43,9 +43,10 @@ class BSCTModelMixin( object ):
         """
         Returns the URL of the listing page for the model.
         """
-        # This used to be a class method, however it is only called in templates in the
-        # context of a model instance, making an instance method more practical.
-        # ( Avoids having to create templatetags to call class method on instance class. )
+        # This used to be a class method, however it is only called in
+        # templates in the # context of a model instance, making an instance
+        # method more practical. ( Avoids having to create templatetags to
+        # call class method on instance class. )
         return reverse( '%s_list' % self.bsct_view_prefix )
 
     @classmethod
