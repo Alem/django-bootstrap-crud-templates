@@ -3,10 +3,10 @@ Django Bootstrap CRUD Templates
 ===============================
 
 Django has freed the developer from the toil of writing boilerplate view logic
-via its class-based view; Bootstrap, the toil of designing aesthetic CSS+HTML
+via its class-based view; and Bootstrap, the toil of designing aesthetic CSS+HTML
 components.
 
-Django Bootstrap CRUD Templates seeks to formally unite the two, allowing
+Django Bootstrap CRUD Templates seeks to unite the two, thus allowing
 developers to simply write class-based views and then select, or extend a chosen
 Bootstrap template.
 
@@ -25,7 +25,7 @@ Usage
 
 Django Bootstrap CRUD Templates provides a repository of Bootstrap-integrated Django
 templates. These templates are designed to work directly with the context
-variables provided by the Django Class-Based View (CBV) and the attributes
+variables provided by the Django Class-Based View and the attributes
 provided by the Django model.
 
 Model Requirements
@@ -33,14 +33,16 @@ Model Requirements
 
 In order to make the most use of the features, the Model should have a few
 attributes defined:
-    
-- ``get_absolute_url`` *: Returns the url to view the instance.
-- ``get_create_url``: Returns the url to create an instance.
-- ``get_list_url``: Returns the url to list all instances.
-- ``get_delete_url``: Returns the url to delete the instance.
-- ``get_update_url``: Returns the url to update the instance.
 
-* Required for minimal navigational functionality.
+- Instance methods:
+    - ``get_absolute_url``: Returns the url to view the instance. ( Minimum requirement )
+    - ``get_delete_url``:   Returns the url to delete the instance.
+    - ``get_update_url``:   Returns the url to update the instance.
+    - ``get_list_url``:     Returns the url to list all instances.
+
+- Class methods:
+    - ``get_create_url``: Returns the url to create an instance.
+
 
 For example, with a delete url named 'widget_delete', get_delete_url may be
 defined as: ::
@@ -48,39 +50,58 @@ defined as: ::
     def get_delete_url( self ):
         return reverse( 'widget_delete', kwargs = {'pk' : self.pk } )
 
-Or, you can skip defining these by adding the ``BSCTModelMixin`` to your model and
-simply naming your urls in the following way:
+You can skip defining these methods by adding the ``BSCTModelMixin`` to your
+model and simply naming the corresponding URLs in the following way:
 
 - ``lowercasemodelname_detail``: For the DetailView.
 - ``lowercasemodelname_create``: For the CreateView.
-- ``lowercasemodelname_list``: For the ListView.
+- ``lowercasemodelname_list``:   For the ListView.
 - ``lowercasemodelname_update``: For the UpdateView.
 - ``lowercasemodelname_delete``: For the DeleteView.
 
+Customizing display of model fields
+###################################
+The default detail views simply print the value of each field.
+If you desire something more than the printed value for any field, simply
+define a detail method ('_detail') for that field::
+
+    class Widget( models.Model )
+        sku = models.IntegerField()
+
+        def sku_detail( self ):
+            return 'SKU_%d' % ( self.sku )
 
 View Requirements
 ~~~~~~~~~~~~~~~~~
 To use a template directly, simply assign its name to the `template_name`
-attribute of the CBV. ::
+attribute of the class-based view. ::
 
-    #in views.py
+    # in views.py
     class CreateWidget( generic.CreateView ):
         model = models.Widget
         template_name = 'bsct/plain/form.html'
 
+Template Requirements
+~~~~~~~~~~~~~~~~~~~~~
 By default, the template extends from 'base.html' and populates the 
-block BSCT_MAIN. Therefore, you will need to have the template 'base.html'
+block BSCT_MAIN. Therefore, you will need to have a template named 'base.html'
 and it must contain the block BSCT_MAIN ::
     
     # base.html
     {% block BSCT_MAIN %}
     {% endblock %}
 
-If you want to use the CDN-provided version of Bootstrap included in the package
+If you want to use the CDN-delivered version of Bootstrap included in the package
 make sure your base template also defined the block BSCT_CSS ::
 
     # base.html
     {% block BSCT_CSS %}
+    {% endblock %}
+
+    </head>
+    <body>
+
+    {% block BSCT_MAIN %}
     {% endblock %}
 
 If you wish to have the template extend from a template other than 'base.html',
@@ -93,11 +114,49 @@ simply provide its name as the value for the context variable 'bsct_base'. ::
         
         def get_context_data(self, **kwargs):
             context = super(CreateWidget, self).get_context_data(**kwargs)
-            context['bsct_base'] = 'my_special_widget_base.html'
+
+            context[ 'bsct_base' ] = 'my_special_widget_base.html'
             return context
 
-Customization
--------------
+Automatic Generation of Views and URLs
+--------------------------------------
+
+You can skip the manual definition of both views and their URLs by using
+bsct.urls.URLGenerator to generate a set of URLs (and views) and including them in your
+applications urlpatterns::
+
+    from bsct.urls import URLGenerator
+    from crud import models
+
+    bsct_patterns = URLGenerator( models.Widget ).get_urlpatterns()
+
+    urlpatterns = patterns( '',
+        url( '', include( bsct_patterns ) )
+    )
+
+ You may also choose to have only a select few of the URLs automatically generated::
+
+    urlpatterns = patterns( '',
+
+            url( '', 
+                
+                # Automatically generate the list and delete url+view.
+                URLGenerator( models.Widget ).get_delete_url(),
+                # Pass parameters to the generic ListView.
+                URLGenerator( models.Widget ).get_list_url( paginate_by = 3 ),
+
+                # Use our custom create view.
+                url( 
+                    r'^widget/create/(?P<id>\d+)/$',
+                    MyWidgetCreateView.as_view(), 
+                    name = 'widget_create' 
+                ),
+            ) 
+        )
+
+
+Template Customization
+----------------------
 Customizing these templates is as simple as creating your own template and
 including the desired Django Bootstrap CRUD Templates template. ::
 

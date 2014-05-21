@@ -5,30 +5,42 @@
 {% block BSCT_CONTENT %}
 
 {% block BSCT_TITLE %}
-<h2>
-    {{object}}
-</h2>
+<h2> {{object}} </h2>
 {% endblock %}
 
 {% block BSCT_DETAIL_FIELDS %}
+
 <table class = 'table table-condensed' >
-{% with object|model_to_dict as md %}
-    {% for name,value in md.items %}
+{% with object|get_detail as d %}
+
+    {% for field,value in d.items %}
     <tr>
         <td>
-            <b> {{ name }}</b>
+            {% block BSCT_DETAIL_FIELDS_FIELD %}
+            <b> {{ field }} </b>
+            {% endblock %}
         </td>
 
         <td>
+            {% block BSCT_DETAIL_FIELDS_VALUE %}
             {{ value }}
+            {% endblock %}
         </td>
     </tr>
     {% endfor %}
+
 {% endwith %}
 </table>
+
+{% block BSCT_DETAIL_FIELDS_EXTRA %}
 {% endblock %}
 
+{% endblock %}
+
+
 {% block BSCT_DETAIL_ACTIONS %}
+
+{% block BSCT_DETAIL_ACTIONS_EDIT %}
 {% if object.get_update_url %}
     <a 
         class = 'btn btn-info'
@@ -37,6 +49,9 @@
         Edit
     </a>
 {% endif %}
+{% endblock %}
+
+{% block BSCT_DETAIL_ACTIONS_DELETE %}
 {% if object.get_delete_url %}
     <a 
         class = 'btn btn-warning'
@@ -45,15 +60,24 @@
         Delete
     </a>
 {% endif %}
+{% endblock %}
+
+{% block BSCT_DETAIL_ACTIONS_LIST %}
 
 {% if object.get_list_url %}
     <a 
         class = 'btn'
-        href  = '{{object.get_list_url}}'
+        href  = '{{ object.get_list_url }}'
     >
         Listing
     </a>
 {% endif %}
+
+{% endblock %}
+
+{% block BSCT_DETAIL_ACTIONS_EXTRA %}
+{% endblock %}
+
 {% endblock %}
 
 {% endblock %}

@@ -8,22 +8,31 @@
 <table class = 'table table-striped'>
 
         <thead>
-            <th> {% get_verbose_name_plural object_list.model %} </th>
-            <th> Action </th>
+            {% block BSCT_LIST_ITEMS_HEADER %}
+
+                <th> {% get_verbose_name_plural object_list.model %} </th>
+                <th> Action </th>
+
+            {% endblock %}
         </thead>
 
+        {% block BSCT_LIST_ITEMS_ROWS %}
         {% for object in object_list %}
         <tr>
             <td> 
                 {% block BSCT_LIST_ITEMS_ITEM %}
-                {{object}} 
+                    {{object}} 
                 {% endblock %}
             </td>
+
+            {% block BSCT_LIST_ITEMS_EXTRA %}
+            {% endblock %}
+
             <td>
                 {% block BSCT_LIST_ITEMS_ACTIONS %}
                 <a
                     class = 'btn'
-                    href  = '{{object.get_absolute_url}}'
+                    href  = '{{ object.get_absolute_url }}'
                 >
                     View
                 </a>
@@ -31,29 +40,26 @@
             </td>
         </tr>
         {% endfor %}
+        {% endblock %}
 
 </table>
 {% endblock %}
 
-<div class = 'row'>
 
 {% block BSCT_LIST_CREATE_LINK %}
 {% if object_list.model.get_create_url %}
-<div class = 'span4'>
 <a
     class = 'btn btn-primary'
     href  = '{{object_list.model.get_create_url }}'
 >
     Create a {% get_verbose_name object_list.model %} 
 </a>
-</div>
 {% endif %}
 {% endblock %}
+
 
 {% block BSCT_LIST_PAGINATION %}
 {% include 'bsct/plain/paginator.html' %}
 {% endblock %}
-
-</div>
 
 {% endblock %}

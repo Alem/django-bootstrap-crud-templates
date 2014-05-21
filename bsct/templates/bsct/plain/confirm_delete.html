@@ -2,18 +2,17 @@
  
 {% block BSCT_CONTENT %}
 <form
-    action=""
-    method="post"
+    action = ""
+    method = "post"
 >
     {% csrf_token %}
 
     {% block BSCT_WARNING %}
+
         {% block BSCT_WARNING_ALERT %}
-        <p 
-            class = 'alert alert-warning'
-        >
+        <h3 class = ''>
             Are you you sure you want to delete "{{object}}"? 
-        </p>
+        </h3>
         {% endblock %}
 
         {% block BSCT_WARNING_OPTS %}
@@ -30,6 +29,7 @@
             No
         </a>
         {% endblock %}
+
     {% endblock %}
 
 </form>
