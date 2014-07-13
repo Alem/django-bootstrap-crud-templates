@@ -1,4 +1,5 @@
 {% load bscttags %}
+{% if is_paginated %}
 <div class="pagination">
     <ul class="pagination">
         <li 
@@ -41,3 +42,4 @@
         </li>
     </ul>
 </div>
+{% endif %}
