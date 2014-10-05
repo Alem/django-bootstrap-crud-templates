@@ -2,18 +2,21 @@
 Django Bootstrap CRUD Templates
 ===============================
 
-Django has freed the developer from the toil of writing boilerplate view logic
-via its class-based view; and Bootstrap, the toil of designing aesthetic CSS+HTML
+Django freed developers from the labor of writing boilerplate view logic with
+class-based view; Bootstrap, the labor of designing aesthetic CSS+HTML
 components.
 
-Django Bootstrap CRUD Templates seeks to unite the two, thus allowing
-developers to simply write class-based views and then select, or extend a chosen
-Bootstrap template.
+Django Bootstrap CRUD Templates aims to unite the two, allowing developers to
+simply write simple class-based views then select, or extend, a Bootstrap
+template for complete CRUD exposure of a model. 
+
+Developers can even do as little as define a model including a single mixin and
+run a function to generate a set of working CRUD URLs for that model (see
+Automatic Generation of Views and URLs).
 
 Demo_
 
 .. _Demo: http://bsct-demo.cidola.com/widget/list
-
 
 Installation
 -------------
@@ -23,10 +26,12 @@ Installation
 Usage
 -----
 
-Django Bootstrap CRUD Templates provides a repository of Bootstrap-integrated Django
-templates. These templates are designed to work directly with the context
-variables provided by the Django Class-Based View and the attributes
-provided by the Django model.
+Django Bootstrap CRUD Templates provides a repository of Bootstrap-integrated
+Django templates.
+
+These templates are designed to work directly with the context variables
+provided by the Django Class-Based View and the attributes provided by the
+Django model.
 
 Model Requirements
 ~~~~~~~~~~~~~~~~~~
@@ -35,7 +40,9 @@ In order to make the most use of the features, the Model should have a few
 attributes defined:
 
 - Instance methods:
-    - ``get_absolute_url``: Returns the url to view the instance. ( Minimum requirement )
+    - ``get_absolute_url``: Returns the url to view the instance. 
+      ( Minimum requirement )
+
     - ``get_delete_url``:   Returns the url to delete the instance.
     - ``get_update_url``:   Returns the url to update the instance.
     - ``get_list_url``:     Returns the url to list all instances.
@@ -50,22 +57,25 @@ defined as: ::
     def get_delete_url( self ):
         return reverse( 'widget_delete', kwargs = {'pk' : self.pk } )
 
-You can skip defining these methods by adding the ``BSCTModelMixin`` to your
-model and simply naming the corresponding URLs in the following way:
+You can skip defining these methods by adding the ``BSCTModelMixin`` mixin
+class to your model and simply naming the corresponding URLs in the following
+way:
 
 - ``lowercasemodelname_detail``: For the DetailView.
 - ``lowercasemodelname_create``: For the CreateView.
-- ``lowercasemodelname_list``:   For the ListView.
 - ``lowercasemodelname_update``: For the UpdateView.
 - ``lowercasemodelname_delete``: For the DeleteView.
+- ``lowercasemodelname_list``:   For the ListView.
 
 Customizing display of model fields
 ###################################
 The default detail views simply print the value of each field.
+
 If you desire something more than the printed value for any field, simply
-define a detail method ('_detail') for that field::
+define a detail method ('<field>_detail') for that field::
 
     class Widget( models.Model )
+
         sku = models.IntegerField()
 
         def sku_detail( self ):
@@ -73,8 +83,8 @@ define a detail method ('_detail') for that field::
 
 View Requirements
 ~~~~~~~~~~~~~~~~~
-To use a template directly, simply assign its name to the `template_name`
-attribute of the class-based view. ::
+To use a template directly, as opposed to extending it, simply assign its name
+to the `template_name` attribute of the class-based view. ::
 
     # in views.py
     class CreateWidget( generic.CreateView ):
@@ -84,15 +94,16 @@ attribute of the class-based view. ::
 Template Requirements
 ~~~~~~~~~~~~~~~~~~~~~
 By default, the template extends from 'base.html' and populates the 
-block BSCT_MAIN. Therefore, you will need to have a template named 'base.html'
+block BSCT_MAIN. 
+Therefore, you will need to have a template named 'base.html'
 and it must contain the block BSCT_MAIN ::
     
     # base.html
     {% block BSCT_MAIN %}
     {% endblock %}
 
-If you want to use the CDN-delivered version of Bootstrap included in the package
-make sure your base template also defined the block BSCT_CSS ::
+If you want to use the CDN-delivered version of Bootstrap included in the
+package make sure your base template also defined the block BSCT_CSS ::
 
     # base.html
     {% block BSCT_CSS %}
@@ -122,8 +133,7 @@ Automatic Generation of Views and URLs
 --------------------------------------
 
 You can skip the manual definition of both views and their URLs by using
-bsct.urls.URLGenerator to generate a set of URLs (and views) and including them in your
-applications urlpatterns::
+bsct.urls.URLGenerator to generate a set of URLs (and views) and including them in your applications urlpatterns::
 
     from bsct.urls import URLGenerator
     from crud import models
@@ -134,7 +144,7 @@ applications urlpatterns::
         url( '', include( bsct_patterns ) )
     )
 
- You may also choose to have only a select few of the URLs automatically generated::
+You may also choose to have only a select few URLs automatically generated::
 
     urlpatterns = patterns( '',
 
@@ -142,18 +152,21 @@ applications urlpatterns::
                 
                 # Automatically generate the list and delete url+view.
                 URLGenerator( models.Widget ).get_delete_url(),
+
                 # Pass parameters to the generic ListView.
                 URLGenerator( models.Widget ).get_list_url( paginate_by = 3 ),
+
 
                 # Use our custom create view.
                 url( 
                     r'^widget/create/(?P<id>\d+)/$',
+
                     MyWidgetCreateView.as_view(), 
+
                     name = 'widget_create' 
                 ),
             ) 
         )
-
 
 Template Customization
 ----------------------
