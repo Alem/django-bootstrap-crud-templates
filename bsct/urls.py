@@ -8,9 +8,9 @@ class URLGenerator( object ):
     Constructs and returns CRUD urls for generic BSCT views for a given model.
 
     URL names follow the pattern: <lower case model name>_<action>
-        - ``lowercasemodelname_list``:   For the ListView.
         - ``lowercasemodelname_detail``: For the DetailView.
         - ``lowercasemodelname_create``: For the CreateView.
+        - ``lowercasemodelname_list``:   For the ListView.
         - ``lowercasemodelname_update``: For the UpdateView.
         - ``lowercasemodelname_delete``: For the DeleteView.
     """
@@ -47,7 +47,7 @@ class URLGenerator( object ):
         Generate the list URL for the model.
         """
         return url(
-            r'%s(/list)?/?$' % self.bsct_view_prefix,
+            r'%s/(list/?)?$' % self.bsct_view_prefix,
             bsct_views.ListView.as_view( model = self.model, **kwargs ),
             name = '%s_list' % self.bsct_view_prefix,
         )
@@ -60,7 +60,7 @@ class URLGenerator( object ):
             r'%s/delete/(?P<pk>\d+)/?$' % self.bsct_view_prefix,
             bsct_views.DeleteView.as_view( 
                model = self.model,
-                success_url = reverse_lazy('%s' % self.bsct_view_prefix),
+                success_url = reverse_lazy('%s_list' % self.bsct_view_prefix),
                 **kwargs
             ), 
             name = '%s_delete' % self.bsct_view_prefix,
