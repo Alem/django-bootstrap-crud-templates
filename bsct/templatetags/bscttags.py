@@ -81,7 +81,7 @@ def append_querystring( request, exclude = None ):
         amp = '&amp;'
         return amp + amp.join(
             [ '%s=%s' % (k,v) 
-                for k,v in request.GET.iteritems() 
+                for k,v in request.GET.items()
                     if k not in exclude ]
         )
 
