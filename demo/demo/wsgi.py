@@ -1,16 +1,16 @@
+"""
+WSGI config for demo project.
+
+It exposes the WSGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
+"""
+
 import os
-import sys
-import site
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'demo.settings'
+from django.core.wsgi import get_wsgi_application
 
-SITE_ROOT = os.path.dirname(os.path.dirname( __file__ ))
-site.addsitedir( SITE_ROOT + '/venv/local/lib/python2.7/site-packages' )
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'demo.settings')
 
-sys.path.append( SITE_ROOT )
-
-activate_env=os.path.expanduser(SITE_ROOT + "/venv/bin/activate_this.py")
-execfile(activate_env, dict(__file__=activate_env))
-
-import django.core.handlers.wsgi
-application = django.core.handlers.wsgi.WSGIHandler()
+application = get_wsgi_application()

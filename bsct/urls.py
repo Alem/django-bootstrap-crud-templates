@@ -1,5 +1,4 @@
-from django.urls import re_path
-from django.urls import reverse_lazy
+from django.urls import re_path,reverse_lazy
 
 from bsct import views as bsct_views
 from django.forms import modelform_factory

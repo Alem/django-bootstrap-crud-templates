@@ -148,33 +148,21 @@ bsct.urls.URLGenerator to generate a set of URLs (and views) and including them 
 
     bsct_patterns = URLGenerator( models.Widget ).get_urlpatterns()
 
-    urlpatterns = patterns( '',
+    urlpatterns = [
         url( '', include( bsct_patterns ) )
-    )
+    ]
 
 You may also choose to have only a select few URLs automatically generated::
 
-    urlpatterns = patterns( '',
+    
+    bsct_patterns = URLGenerator( models.Widget ).get_urlpatterns( crud_types = 'rud')
 
-            url( '', 
-                
-                # Automatically generate the list and delete url+view.
-                URLGenerator( models.Widget ).get_delete_url(),
+    #'c' - Refers to the Create CRUD type
+    #'r' - Refers to the Read/Detail CRUD type
+    #'u' - Refers to the Update/Edit CRUD type
+    #'d' - Refers to the Delete CRUD type
+    #'l' - Refers to the List CRUD type
 
-                # Pass parameters to the generic ListView.
-                URLGenerator( models.Widget ).get_list_url( paginate_by = 3 ),
-
-
-                # Use our custom create view.
-                url( 
-                    r'^widget/create/(?P<id>\d+)/$',
-
-                    MyWidgetCreateView.as_view(), 
-
-                    name = 'widget_create' 
-                ),
-            ) 
-        )
 
 Template Customization
 ----------------------
