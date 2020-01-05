@@ -14,14 +14,13 @@ def netdna_css( path ):
     """
     Returns a link to the named NetDNA-hosted CSS resource.
     """
-    return '<link href="//netdna.bootstrapcdn.com/%s" rel="stylesheet">' % path
+    return '//netdna.bootstrapcdn.com/%s' % path
 
 def netdna_js( path ):
     """
-    Returns a script element sourcing the named NetDNA-hosted JavaScript
-    resource.
+    Returns a link to the named NetDNA-hosted JavaScript resource.
     """
-    return '<script src="//netdna.bootstrapcdn.com/%s"></script>' % path
+    return '//netdna.bootstrapcdn.com/%s' % path
 
 @register.simple_tag
 def bootstrap_js_cdn(version = '3.1.1'):
@@ -96,15 +95,32 @@ def get_detail( instance ):
     """
     Returns a dictionary of the models fields and values.
 
-    If the method '<field>_detail' is defined, its value is used as the
+    If the method '<field>_detail' or verbose_name is defined, its value is used as the
     displayed value for the field. 
     """
-    details = serializers.serialize( "python", [instance] )[0]['fields']
+    fields  = instance._meta.get_fields()
+    details = {}
 
-    for field in details.keys():
-        detail_method = getattr( instance, '%s_detail' % field, None )
+    for field in fields:
+        detail_method = getattr( instance, '%s_detail' % field.name, None )
+        verbose       = getattr( field, 'verbose_name', None)
+        value         = getattr( instance,field.name, None)
 
-        if detail_method:
-            details[ field ] = detail_method()
+        if field.is_relation:
+            # Skipping model relations for now
+            relation_verbose = getattr(field.related_model._meta, 'verbose_name')
+            if getattr(field,'multiple', False):
+                rset = getattr( instance,'%s_set' % field.name)
+                value = [ i for i in rset.all()]
+            if relation_verbose:
+                details[ relation_verbose ] = value
+            else:
+                details[ field.name ] = value
+        elif detail_method:
+            details[ detail_method() ] = value
+        elif verbose:
+            details[ verbose ] = value
+        else:
+            details[ field.name ] = value
 
     return details

@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 class BSCTModelMixin( object ):
     """
@@ -55,3 +55,24 @@ class BSCTModelMixin( object ):
         Returns the URL of the creation page for the model.
         """
         return reverse( '%s_create' % cls.__name__.lower() )
+
+    @classmethod
+    def get_allowed_fields( cls ):
+        """
+        Returns list of CRUD-exposable model fields.
+
+        Otherwise defaults to the "__all__" keyword, accepted by the
+        django.forms.modelform_factory method
+        """
+        return "__all__"
+
+
+    def get_list_url( self ):
+        """
+        Returns the URL of the listing page for the model.
+        """
+        # This used to be a class method, however it is only called in
+        # templates in the # context of a model instance, making an instance
+        # method more practical. ( Avoids having to create templatetags to
+        # call class method on instance class. )
+        return reverse( '%s_list' % self.bsct_view_prefix )

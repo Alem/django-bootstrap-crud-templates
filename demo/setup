@@ -1,6 +1,6 @@
 #!/bin/bash
-virtualenv venv
+python3 -m venv venv
 source venv/bin/activate
-pip install django==1.6
+pip install django
 ./build
 echo "Setup Complete."

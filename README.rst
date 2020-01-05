@@ -40,15 +40,16 @@ In order to make the most use of the features, the Model should have a few
 attributes defined:
 
 - Instance methods:
-    - ``get_absolute_url``: Returns the url to view the instance. 
+    - ``get_absolute_url``:    Returns the url to view the instance. 
       ( Minimum requirement )
 
-    - ``get_delete_url``:   Returns the url to delete the instance.
-    - ``get_update_url``:   Returns the url to update the instance.
-    - ``get_list_url``:     Returns the url to list all instances.
+    - ``get_delete_url``:      Returns the url to delete the instance.
+    - ``get_update_url``:      Returns the url to update the instance.
+    - ``get_list_url``:        Returns the url to list all instances.
 
 - Class methods:
-    - ``get_create_url``: Returns the url to create an instance.
+    - ``get_create_url``:      Returns the url to create an instance.
+    - ``get_allowed_fields``:  Returns the list of editable fields.
 
 
 For example, with a delete url named 'widget_delete', get_delete_url may be
@@ -56,6 +57,9 @@ defined as: ::
     
     def get_delete_url( self ):
         return reverse( 'widget_delete', kwargs = {'pk' : self.pk } )
+
+You should define the model fields exposed to CRUD by defining
+get_allowed_fields. ::
 
 You can skip defining these methods by adding the ``BSCTModelMixin`` mixin
 class to your model and simply naming the corresponding URLs in the following
@@ -66,6 +70,10 @@ way:
 - ``lowercasemodelname_update``: For the UpdateView.
 - ``lowercasemodelname_delete``: For the DeleteView.
 - ``lowercasemodelname_list``:   For the ListView.
+
+Note: It is still recommended to define get_allowed_fields in your model,
+otherwise it will fallback to the dangerous default of exposing ALL model
+fields.
 
 Customizing display of model fields
 ###################################

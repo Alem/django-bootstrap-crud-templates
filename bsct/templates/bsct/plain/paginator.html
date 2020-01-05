@@ -17,19 +17,20 @@
         {% endif %}
 
         {% for po in paginator.page_range %}
+
             {% if po == page_obj.number %}
             <li class ='active' >
                 <a class ='current'> {{ page_obj.number }}</a>
-            {% else %}
+            {% elif po < page_obj.number|add:'6' and po > page_obj.number|add:'-6'  %}
             <li class =''>
-            <a class ='' href="?page={{ po }}{% append_querystring request %}">{{ po }}</a>
+                <a class ='' href="?page={{ po }}{% append_querystring request %}">{{ po }}</a>
             {% endif %}
             </li>
         {% endfor %}
 
         {% if page_obj.has_next %}
         <li class =''>
-        <a class ='next-page' href="?page={{ page_obj.next_page_number }}{% append_querystring request %}">&gt;</a>
+            <a class ='next-page' href="?page={{ page_obj.next_page_number }}{% append_querystring request %}">&gt;</a>
         </li>
         {% endif %}
 
