@@ -58,10 +58,16 @@ defined as: ::
     def get_delete_url( self ):
         return reverse( 'widget_delete', kwargs = {'pk' : self.pk } )
 
-You should define the model fields exposed to CRUD by defining
+You can define the model fields exposed to CRUD by defining
 get_allowed_fields. ::
 
-You can skip defining these methods by adding the ``BSCTModelMixin`` mixin
+    @classmethod
+    def get_allowed_fields( cls ):
+        """
+        """
+        return ['field1','field2']
+
+You can skip defining these methods by adding the `BSCTModelMixin`` mixin
 class to your model and simply naming the corresponding URLs in the following
 way:
 
@@ -71,9 +77,9 @@ way:
 - ``lowercasemodelname_delete``: For the DeleteView.
 - ``lowercasemodelname_list``:   For the ListView.
 
-Note: It is still recommended to define get_allowed_fields in your model,
-otherwise it will fallback to the dangerous default of exposing ALL model
-fields.
+Note: Even with the BSCTModelMixin, it is still recommended to define
+get_allowed_fields in your model, otherwise it will fallback to the risky
+default of exposing ALL model fields.
 
 Customizing display of model fields
 ###################################
